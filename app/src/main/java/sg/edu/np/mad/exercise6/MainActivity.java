@@ -1,8 +1,9 @@
 package sg.edu.np.mad.exercise6;
 
+import static android.media.CamcorderProfile.get;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    DBHandler db = new DBHandler(this, null, null, 1);
     User u;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +35,11 @@ public class MainActivity extends AppCompatActivity {
         Button b = findViewById(R.id.btnFollow);
         if(u.followed) {
             b.setText("Unfollow");
+            db.updateUser(u);
         }
         else {
             b.setText("Follow");
+            db.updateUser(u);
         }
     }
     public void onFollowClick(View v) {

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ListActivity extends AppCompatActivity {
-    static ArrayList<User> userList = new ArrayList<>();
+    static ArrayList<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +25,16 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 
         DBHandler db = new DBHandler(this, null, null, 1);
-
-
+        for(int i=0; i<20; i++) {
+            User u = new User();
+            u.setName("Name" + new Random().nextInt());
+            u.setDescription("Description " + new Random().nextInt());
+            u.setFollowed(new Random().nextInt()%2 == 0);
+            db.addUser(u);
+        }
+        userList = new ArrayList<>();
         userList = db.getUsers();
-//        new ArrayList<>();
-//        for(int i=0; i<20; i++)
-//        {
-//            User u = new User();
-//            u.name = "Name" + new Random().nextInt();
-//            u.description = "Description " + new Random().nextInt();
-//            u.followed = new Random().nextInt()%2 == 0;
-//            userList.add(u);
-//        }
+
 
         RecyclerView rv = findViewById(R.id.rv);
         myAdapter Adapter = new myAdapter(userList);
