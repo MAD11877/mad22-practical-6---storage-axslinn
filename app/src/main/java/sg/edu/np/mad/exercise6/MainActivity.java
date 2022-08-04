@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
         Button b = findViewById(R.id.btnFollow);
         if(u.followed) {
             b.setText("Unfollow");
-            db.updateUser(u);
-        }
-        else {
+            u.setFollowed(true);
+        } else {
             b.setText("Follow");
-            db.updateUser(u);
+            u.setFollowed(false);
         }
+        db.updateUser(u);
     }
     public void onFollowClick(View v) {
         u.followed = !u.followed;
